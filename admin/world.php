@@ -25,6 +25,12 @@
 			$(editableObj).css("background","#FFF");
 		} 
 
+		function messageSet(data)
+		{
+			$("#Messages").html(data.message);
+			$('#Messages').delay(4000).fadeOut();
+		}
+
 		function confirmDelete(roomID, roomName) 
 		{
 			var answer = confirm("Are you sure you want to delete \"" + roomName + "\" (#" + roomID +")?");
@@ -36,10 +42,11 @@
 						url: "worldedit.php",
 						type: "POST",
 						data:'delete=1&id='+roomID,
+						dataType: "json",
 						success: function(data)
 						{
-							$("#Messages").html(data);
-							$('#Messages').delay(4000).fadeOut();
+							messageSet(data);
+							$('table#world tr#roomID' +data.extra).remove();
 						}        
 					}
 				);
@@ -55,9 +62,15 @@
 					url: "worldedit.php",
 					type: "POST",
 					data:'column='+column+'&editval='+encodeURIComponent(editableObj.innerHTML)+'&id='+id,
+					dataType: "json",
 					success: function(data)
 					{
+						messageSet(data);
 						$(editableObj).css("background","#FDFDFD");
+						if(data.extra)
+						{
+							location.reload(true);
+						}
 					}        
 				}
 			);
@@ -90,7 +103,7 @@ if ($result->num_rows > 0)
 <?php
     while($row = $result->fetch_assoc()) 
 	{
-		echo "<tr class=\"table-row\">";
+		echo "<tr class=\"table-row\" id=roomID".$row['id'].">";
 ?>
 		<td valign="top" contenteditable="true" onBlur="saveToDatabase(this,'name','<?php echo $row["id"]; ?>')" onClick="showEdit(this);"><?php echo $row["name"]; ?></td>
 		<td valign="top" contenteditable="true" onBlur="saveToDatabase(this,'description','<?php echo $row["id"]; ?>')" onClick="showEdit(this);"><?php echo $row["description"]; ?></td>

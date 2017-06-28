@@ -15,22 +15,37 @@ if($id)
 	if(isset($_POST["delete"]))
 	{
 		$sql = "DELETE FROM world WHERE id=$id";
-		echo "Room deleted!";
+		$result = $mysqli->query($sql);
+		header('Content-Type: application/json');
+		$response["message"]="Room deleted!";
+		$response["extra"]="$id";
+		echo json_encode($response);
 	}
 	else
 	{
 		$sql = "UPDATE world SET $column='$value' WHERE id=$id";
+		$result = $mysqli->query($sql);
+		$response["message"]="Room edited!";
+		$response["extra"]="";
+		echo json_encode($response);
 	}
 }
 else
 if (isset($_POST["column"]) && $_POST["column"])
 {
 	$sql = "INSERT INTO world ($column) VALUES ('$value')";
+	$result = $mysqli->query($sql);
+	$newID = mysqli_insert_id($mysqli);
+	$response["message"]="New room inserted!";
+	$response["extra"]=$newID;
+	echo json_encode($response);
 }
 
-if (!$result = $mysqli->query($sql)) 
+/*if (!$result = $mysqli->query($sql)) 
 	{
 		die ('There was an error running world fetch query[' . $mysqli->error . ']');
+
 	}
+*/
 error_log($sql);
 ?>
