@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <TITLE>Edit WebMU World</title>
-	<style>
-		.current-row{background-color:#B24926;color:#FFF;}
-		.current-col{background-color:#1b1b1b;color:#FFF;}
-		.tbl-world{width: 100%;font-size:0.9em;background-color: #f5f5f5;}
-		.tbl-world th.table-header {padding: 5px;text-align: left;padding:10px;}
-		.tbl-world .table-row td {padding:10px;background-color: #FDFDFD;}
-	</style>
 	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
 		function AddRow()
@@ -77,10 +70,11 @@
 		}
 	</script>
 	<style>
-      tr:nth-of-type(odd) {
-      background-color:#ccc;
-    }
-</style>
+      tr:nth-of-type(odd) 
+		{
+	      background-color:#ccc;
+    	}
+	</style>
 </head>
 <body>
 <?php
@@ -107,10 +101,10 @@ if ($result->num_rows > 0)
 ?>
 		<td valign="top" contenteditable="true" onBlur="saveToDatabase(this,'name','<?php echo $row["id"]; ?>')" onClick="showEdit(this);"><?php echo $row["name"]; ?></td>
 		<td valign="top" contenteditable="true" onBlur="saveToDatabase(this,'description','<?php echo $row["id"]; ?>')" onClick="showEdit(this);"><?php echo $row["description"]; ?></td>
-		<td valign="top"><img src='../images/button_delete.png' height='20' width='20' onclick='confirmDelete(<?php echo $row["id"]. ",\"". $row["name"]; ?>")'></td><tr>
+		<td valign="top"><img src='../images/button_delete.png' height='20' width='20' onclick='confirmDelete(<?php echo $row["id"]. ",\"". $row["name"]; ?>")'></td>
 <?php		
 	}
-	echo "</tbody></table>";
+	echo "</tr></table>";
 }
 else 
 	{
