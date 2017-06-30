@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <label for="description">Room Description</label>
-                    <input type="text" id="description" placeholder="Room Description" class="form-control"/>
+                    <textarea id="description" placeholder="Room Description" rows="20" cols="80" class="form-control"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

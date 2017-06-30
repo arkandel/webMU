@@ -2,7 +2,8 @@
 function addRecord() {
     // get values
     var name = $("#name").val();
-    var description = $("#description").val();
+    //var description = $("#description").val();
+    description = tinyMCE.activeEditor.getContent();
 
     // Add record
     $.post("ajax/addRecord.php", {
