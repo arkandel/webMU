@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="row">
-    <input id="searchbox" type="text" />
+    Filter: <input id="searchbox" type="text" placeholder="Start typing..."/>
  
         <div class="col-md-12">
             <div class="pull-right">
@@ -115,7 +115,7 @@
 <!-- // The search/filter box -->
 <script>
    
-    $('#searchbox').on("input", function() {
+    $("#searchbox").keyup( function() {
         var searchQuery = this.value;
         readRooms(searchQuery);
     });

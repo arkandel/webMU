@@ -22,14 +22,19 @@ function addRecord() {
     });
 }
 
-// READ records
-function readRooms(filter) {
-    console.log(filter);
-    $.get("ajax/readRooms.php?filter=\"" + filter +"\"", {}, function (data, status) {
-        $(".records_content").html(data);
-    });
-}
-
+function readRooms(filter)
+    {
+        $.post("ajax/readRooms.php", 
+            {
+                filter: filter
+            },
+            function (data, status) 
+            {
+                // reload Users by using readRooms();
+                $(".records_content").html(data);
+            }
+        );
+    }
 
 function DeleteRoom(id,name) {
     var conf = confirm("Are you sure, do you really want to delete " + name +" ?");
@@ -38,7 +43,7 @@ function DeleteRoom(id,name) {
                 id: id
             },
             function (data, status) {
-                // reload Users by using readRooms();
+                // reload rooms in the UI by calling up readRooms();
                 readRooms("");
             }
         );
