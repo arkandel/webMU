@@ -6,6 +6,7 @@
 
     <!-- Bootstrap CSS File  -->
     <link rel="stylesheet" type="text/css" href="bootstrap-3.3.5-dist/css/bootstrap.css"/>
+    <script type="text/javascript" src="../js/tinymce/tinymce.min.js"></script>
 </head>
 <body>
 
@@ -81,7 +82,12 @@
 
                 <div class="form-group">
                     <label for="update_description">Room Description</label>
-                    <input type="text" id="update_description" placeholder="Room Description" class="form-control"/>
+                    <textarea id="update_description" placeholder="Room Description" rows="20" cols="80" class="form-control"></textarea>
+
+                <script>
+                    tinymce.init({selector:'textarea'});
+                </script>
+
                 </div>
             </div>
             <div class="modal-footer">

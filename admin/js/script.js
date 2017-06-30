@@ -52,10 +52,10 @@ function GetRoomDetails(id) {
         function (data, status) {
             // PARSE json data
             var room = JSON.parse(data);
-            console.log(room);      
             // Assing existing values to the modal popup fields
             $("#update_name").val(room.name);
-            $("#update_description").val(room.description);
+            //$("#update_description").val(room.description);
+            tinyMCE.activeEditor.setContent(room.description);
         }
     );
     // Open modal popup
@@ -65,13 +65,14 @@ function GetRoomDetails(id) {
 function UpdateRoomDetails() {
     // get values
     var name = $("#update_name").val();
-    var description = $("#update_description").val();
+    //var description = $("#update_description").val();
+    description = tinyMCE.activeEditor.getContent();
 
     // get hidden field value
     var id = $("#hidden_room_id").val();
 
     // Update the details by requesting to the server using ajax
-    $.post("ajax/UpdateRoomDetails.php", {
+    $.post("ajax/updateRoomDetails.php", {
             id: id,
             name: name,
             description: description,
