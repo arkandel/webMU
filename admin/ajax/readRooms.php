@@ -11,7 +11,14 @@
 							<th>Description</th>
 						</tr>';
 
-	$query = "SELECT * FROM world";
+	if(isset($_POST['filter']) && $_POST['filter']!="") // Let's cut down on selects some.l
+	{
+			$filter = $mysqli->real_escape_string($_POST['filter']);
+			$query = "SELECT * FROM world WHERE name LIKE '%$filter%'";
+			error_log($query);
+	}
+	else
+		$query = "SELECT * FROM world";
 
 	if (!$result = $mysqli->query($query)) {
         exit($mysqli->error);

@@ -23,8 +23,9 @@ function addRecord() {
 }
 
 // READ records
-function readRooms() {
-    $.get("ajax/readRooms.php", {}, function (data, status) {
+function readRooms(filter) {
+    console.log(filter);
+    $.get("ajax/readRooms.php?filter=\"" + filter +"\"", {}, function (data, status) {
         $(".records_content").html(data);
     });
 }
@@ -38,7 +39,7 @@ function DeleteRoom(id,name) {
             },
             function (data, status) {
                 // reload Users by using readRooms();
-                readRooms();
+                readRooms("");
             }
         );
     }
@@ -82,12 +83,12 @@ function UpdateRoomDetails() {
             // hide modal popup
             $("#update_room_modal").modal("hide");
             // reload rooms by using readRooms();
-            readRooms();
+            readRooms("");
         }
     );
 }
 
 $(document).ready(function () {
     // READ recods on page load
-    readRooms(); // calling function
+    readRooms(""); // calling function
 });
