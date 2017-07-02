@@ -25,6 +25,12 @@
 	{
 			$currentPage = $mysqli->real_escape_string($_POST['currentPage']);
 			$perPage = $mysqli->real_escape_string($_POST['perPage']);
+
+			if($currentPage==1)
+				$currentPage=0;
+			else
+				$currentPage=($currentPage-1)*$perPage;
+			
 			$query .= " LIMIT $currentPage,$perPage";
 	}
 

@@ -30,13 +30,13 @@ function addRecord() {
 
 function addPagination(totalPages)
 {
-		var html = "<div id='content'></div><div id='pagination'><ul class='pagination'";
+		var html = "<div id='content'><div id='pagination'>Pages: <ul class='pagination'>";
 		//Pagination Numbers
 		for(counter=1; counter<=totalPages; counter++)
 		{
 			html += "<li id=" + counter + ">" + counter + "</li>";
 		}
-		html += "</ul></div></div>";	
+		html += "</ul></div></div>";
         return(html);
 }
 
@@ -121,19 +121,13 @@ function UpdateRoomDetails() {
         readRooms(searchQuery);
     });
 
-
-
     //Pagination - click grabbing, etc.
     $("#pagination li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
 
     //Pagination Click
-    $("#pagination li").click(function()
+    //$("#pagination li").click(function()
+    $(document).on('click', 'li', function()
     {
-        //CSS Styles
-        $("#pagination li").css({'border' : 'solid #dddddd 1px'}).css({'color' : '#0063DC'});
-        $(this).css({'color' : '#FF0084'}).css({'border' : 'none'});
-        //Loading Data
-        console.log("Got clicked!");
         var currentPage = this.id;
         readRooms("", currentPage,2);
     });
