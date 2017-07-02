@@ -11,14 +11,20 @@
 							<th>Description</th>
 						</tr>';
 
-	if(isset($_POST['filter']) && $_POST['filter']!="") // Let's cut down on selects some.l
+	$query = "SELECT * FROM world";
+
+	if(isset($_POST['filter']) && $_POST['filter']!="") // Let's cut down on selects some.
 	{
 			$filter = $mysqli->real_escape_string($_POST['filter']);
-			$query = "SELECT * FROM world WHERE name LIKE '%$filter%'";
-			error_log($query);
+			$query .= " WHERE name LIKE '%$filter%'";
+	}	
+
+	if(isset($_POST['currentPage']) && $_POST['currentPage']!="") // Let's cut down on selects some.
+	{
+			$currentPage = $mysqli->real_escape_string($_POST['currentPage']);
+			$perPage = $mysqli->real_escape_string($_POST['perPage']);
+			$query .= " LIMIT $currentPage,$perPage";
 	}
-	else
-		$query = "SELECT * FROM world";
 
 	if (!$result = $mysqli->query($query)) {
         exit($mysqli->error);

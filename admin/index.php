@@ -111,16 +111,5 @@
 
 <!-- Custom JS file -->
 <script type="text/javascript" src="js/script.js"></script>
-
-<!-- // The search/filter box -->
-<script>
-   
-    $("#searchbox").keyup( function() {
-        var searchQuery = this.value;
-        readRooms(searchQuery);
-    });
-
-
-    </script>
 </body>
 </html>

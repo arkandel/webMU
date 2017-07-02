@@ -14,7 +14,7 @@ function addRecord() {
         $("#add_new_record_modal").modal("hide");
 
         // read records again
-        readRooms();
+        readRooms("");
 
         // clear fields from the popup
         $("#name").val("");
@@ -22,19 +22,19 @@ function addRecord() {
     });
 }
 
-function readRooms(filter)
-    {
-        $.post("ajax/readRooms.php", 
+function readRooms(filter, currentPage, perPage)
+{
+        $.post("ajax/readRooms.php",
             {
                 filter: filter
             },
-            function (data, status) 
+            function (data, status)
             {
                 // reload Users by using readRooms();
                 $(".records_content").html(data);
             }
         );
-    }
+}
 
 function DeleteRoom(id,name) {
     var conf = confirm("Are you sure, do you really want to delete " + name +" ?");
@@ -92,6 +92,12 @@ function UpdateRoomDetails() {
         }
     );
 }
+
+// The search/filter box   
+    $("#searchbox").keyup( function() {
+        var searchQuery = this.value;
+        readRooms(searchQuery);
+    });
 
 $(document).ready(function () {
     // READ recods on page load
