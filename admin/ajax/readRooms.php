@@ -19,6 +19,8 @@
 			$query .= " WHERE name LIKE '%$filter%'";
 	}	
 
+	$filtered_query = $query; // saving this for pagination later.
+
 	if(isset($_POST['currentPage']) && $_POST['currentPage']!="") // Let's cut down on selects some.
 	{
 			$currentPage = $mysqli->real_escape_string($_POST['currentPage']);
@@ -30,8 +32,8 @@
         exit($mysqli->error);
     }
 
-    // if query results contains rows then featch those rows 
-    if(mysqli_num_rows($result) > 0)
+    // Our big loop
+    if( mysqli_num_rows($result) > 0)
     {
     	$number = 1;
     	while($row = mysqli_fetch_assoc($result))
@@ -49,14 +51,21 @@
     		</tr>';
     		$number++;
     	}
+
+		$result = $mysqli->query($filtered_query); // We need the total number of rooms to paginate.
+		$totalRooms = mysqli_num_rows($result);
+		$totalPages = ceil($totalRooms/$perPage);
     }
     else
     {
-    	// records now found 
+    	// records not found 
     	$data .= '<tr><td colspan="6">Records not found!</td></tr>';
     }
 
     $data .= '</table>';
 
-    echo $data;
+	$response['html'] = $data;
+    $response['totalPages'] = $totalPages;
+
+    echo json_encode($response);
 ?>

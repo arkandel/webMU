@@ -1,3 +1,9 @@
+
+// Initial values.
+var filter="";
+var perPage=2;
+var currentPage=1;
+
 // Add Record
 function addRecord() {
     // get values
@@ -22,16 +28,32 @@ function addRecord() {
     });
 }
 
+function addPagination(totalPages)
+{
+		var html = "<div id='content'></div><div id='pagination'><ul class='pagination'";
+		//Pagination Numbers
+		for(counter=1; counter<=totalPages; counter++)
+		{
+			html += "<li id=" + counter + ">" + counter + "</li>";
+		}
+		html += "</ul></div></div>";	
+        return(html);
+}
+
 function readRooms(filter, currentPage, perPage)
 {
         $.post("ajax/readRooms.php",
             {
-                filter: filter
+                filter: filter,
+                currentPage: currentPage,
+                perPage: perPage
             },
             function (data, status)
             {
+                var response = JSON.parse(data);
+                
                 // reload Users by using readRooms();
-                $(".records_content").html(data);
+                $(".records_content").html(response.html + addPagination(response.totalPages));
             }
         );
 }
@@ -93,13 +115,29 @@ function UpdateRoomDetails() {
     );
 }
 
-// The search/filter box   
+    // The search/filter box   
     $("#searchbox").keyup( function() {
         var searchQuery = this.value;
         readRooms(searchQuery);
     });
 
+
+
+    //Pagination - click grabbing, etc.
+    $("#pagination li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
+
+    //Pagination Click
+    $("#pagination li").click(function()
+    {
+        //CSS Styles
+        $("#pagination li").css({'border' : 'solid #dddddd 1px'}).css({'color' : '#0063DC'});
+        $(this).css({'color' : '#FF0084'}).css({'border' : 'none'});
+        //Loading Data
+        console.log("Got clicked!");
+        var currentPage = this.id;
+        readRooms("", currentPage,2);
+    });
+
 $(document).ready(function () {
-    // READ recods on page load
-    readRooms(""); // calling function
+    readRooms(filter,currentPage,perPage); // starting things out.
 });
