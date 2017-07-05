@@ -1,15 +1,11 @@
-
-// Initial values.
-var filter="";
-var perPage=2;
-var currentPage=1;
+var perPage=5; // Globalize it now. Later on we might put it in an input box.
 
 // Add Record
 function addRecord() {
     // get values
     var name = $("#name").val();
-    //var description = $("#description").val();
-    description = tinyMCE.activeEditor.getContent();
+    var description = $("#description").val();
+    //description = tinyMCE.activeEditor.getContent();
 
     // Add record
     $.post("ajax/addRecord.php", {
@@ -20,21 +16,27 @@ function addRecord() {
         $("#add_new_record_modal").modal("hide");
 
         // read records again
-        readRooms("");
+		filter = searchbox.value;
+		currentPage = $( "li[value='current']" ).html();
+        readRooms(filter,currentPage,perPage);
 
         // clear fields from the popup
         $("#name").val("");
-        $("#description").val("");
+		$("#description").val("");
+		tinyMCE.activeEditor.setContent("");
     });
 }
 
-function addPagination(totalPages)
+function addPagination(totalPages, currentPage)
 {
 		var html = "<div id='content'><div id='pagination'>Pages: <ul class='pagination'>";
 		//Pagination Numbers
 		for(counter=1; counter<=totalPages; counter++)
 		{
-			html += "<li id=" + counter + ">" + counter + "</li>";
+			if(counter==currentPage)
+				html += "<li value='current' id=" + counter + ">" + counter + "</li>";
+			else
+				html += "<li id=" + counter + ">" + counter + "</li>";
 		}
 		html += "</ul></div></div>";
         return(html);
@@ -51,9 +53,9 @@ function readRooms(filter, currentPage, perPage)
             function (data, status)
             {
                 var response = JSON.parse(data);
-                
+
                 // reload Users by using readRooms();
-                $(".records_content").html(response.html + addPagination(response.totalPages));
+                $(".records_content").html(response.html + addPagination(response.totalPages, currentPage));
             }
         );
 }
@@ -61,12 +63,13 @@ function readRooms(filter, currentPage, perPage)
 function DeleteRoom(id,name) {
     var conf = confirm("Are you sure, do you really want to delete " + name +" ?");
     if (conf == true) {
-        $.post("ajax/deleteRoom.php", {
+	$.post("ajax/deleteRoom.php", {
                 id: id
             },
             function (data, status) {
                 // reload rooms in the UI by calling up readRooms();
-                readRooms("");
+				filter = searchbox.value;
+                readRooms(filter,currentPage,perPage);
             }
         );
     }
@@ -83,7 +86,6 @@ function GetRoomDetails(id) {
             var room = JSON.parse(data);
             // Assing existing values to the modal popup fields
             $("#update_name").val(room.name);
-            //$("#update_description").val(room.description);
             tinyMCE.activeEditor.setContent(room.description);
         }
     );
@@ -101,37 +103,38 @@ function UpdateRoomDetails() {
     var id = $("#hidden_room_id").val();
 
     // Update the details by requesting to the server using ajax
-    $.post("ajax/updateRoomDetails.php", {
+    $.post("ajax/updateRoomDetails.php",
+		{
             id: id,
             name: name,
             description: description,
         },
-        function (data, status) {
+        function (data, status)
+		{
             // hide modal popup
             $("#update_room_modal").modal("hide");
             // reload rooms by using readRooms();
-            readRooms("");
+            readRooms(filter, currentPage, perPage);
         }
     );
 }
 
-    // The search/filter box   
+    // The search/filter box
     $("#searchbox").keyup( function() {
         var searchQuery = this.value;
-        readRooms(searchQuery);
+        readRooms(searchQuery, currentPage, perPage);
     });
 
     //Pagination - click grabbing, etc.
-    $("#pagination li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
-
-    //Pagination Click
-    //$("#pagination li").click(function()
     $(document).on('click', 'li', function()
     {
-        var currentPage = this.id;
-        readRooms("", currentPage,2);
+		filter = searchbox.value;
+        currentPage = this.id;
+        readRooms(filter, currentPage,perPage);
     });
 
 $(document).ready(function () {
-    readRooms(filter,currentPage,perPage); // starting things out.
+	var filter = "";
+	var currentPage = 1;
+    readRooms(filter,currentPage,perPage); // Starting things out.
 });

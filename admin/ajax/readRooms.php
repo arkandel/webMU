@@ -19,19 +19,22 @@
 			$query .= " WHERE name LIKE '%$filter%'";
 	}	
 
-	$filtered_query = $query; // saving this for pagination later.
-
-	if(isset($_POST['currentPage']) && $_POST['currentPage']!="") // Let's cut down on selects some.
+	if(isset($_POST['currentPage']) && $_POST['currentPage']!="")
 	{
 			$currentPage = $mysqli->real_escape_string($_POST['currentPage']);
 			$perPage = $mysqli->real_escape_string($_POST['perPage']);
 
-			if($currentPage==1)
-				$currentPage=0;
-			else
-				$currentPage=($currentPage-1)*$perPage;
+			$result = $mysqli->query($query); // We need the total number of filtered rooms to paginate.
+			$totalRooms = mysqli_num_rows($result);
+			$totalPages = ceil($totalRooms/$perPage);
 			
-			$query .= " LIMIT $currentPage,$perPage";
+			if(($currentPage-1)*$perPage >= $totalRooms ) // In case we just at the last page then we changed the filters or deleted the top room in the last page, and the 'current' page number is now invalid.
+			{
+				$currentPage=(int)(max(1,($totalRooms/$perPage)));
+			}
+
+			$startAtRecord = ($currentPage-1)*$perPage; // "Real" pages since it starts from 0.
+			$query .= " LIMIT $startAtRecord,$perPage";
 	}
 
 	if (!$result = $mysqli->query($query)) {
@@ -49,18 +52,14 @@
 				<td>'.$row['name'].'</td>
 				<td>'.$row['description'].'</td>
 				<td>
-					<button onclick="GetRoomDetails('.$row['id'].')" class="btn btn-warning">Update</button>
+					<button onclick="GetRoomDetails('.$mysqli->real_escape_string($row['id']).')" class="btn btn-warning">Update</button>
 				</td>
 				<td>
-					<button onclick="DeleteRoom('.$row['id'].',\''. $row['name'].'\')" class="btn btn-danger">Delete</button>
+					<button onclick="DeleteRoom('.$mysqli->real_escape_string($row['id']).',\''. $mysqli->real_escape_string($row['name']).'\')" class="btn btn-danger">Delete</button>
 				</td>
     		</tr>';
     		$number++;
     	}
-
-		$result = $mysqli->query($filtered_query); // We need the total number of rooms to paginate.
-		$totalRooms = mysqli_num_rows($result);
-		$totalPages = ceil($totalRooms/$perPage);
     }
     else
     {
