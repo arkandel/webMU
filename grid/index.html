@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/hexgrid.js"></script>
+	<link rel="stylesheet" href="hexgrid.css" />
+	<style type="text/css">
+
+	</style>
+</head>
+
+<body>
+	<hex-grid id="Grid">
+		<hex-row>
+			<hex-tile id="1_1"></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+		<hex-row>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+			<hex-tile></hex-tile>
+		</hex-row>
+	</hex-grid>
+	<script type="text/javascript">
+		// testing
+		$(function () {
+			var grid = $("#Grid")[0];
+//			grid.getTile(1, 1).innerText = "1,1";
+			grid.getTile(1, 1).innerHTML = "<img src='../images/1.png' width='30' height='30'>";
+		});
+
+		$('hex-tile').click(function () {
+			var hex = getPosition2($(this));
+			console.log(hex);
+			var image = "<img src='../images/1.png' width='30' height='30'>";
+			if(!$(this).html())
+				$(this).html(image);
+			else
+				$(this).html('');
+		});
+	</script>
+
+
+
+
+</body>
+
+</html>
