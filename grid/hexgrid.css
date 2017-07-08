@@ -27,6 +27,12 @@ hex-tile {
 	position: relative;
 	margin: 1em 0;
 }
+
+hex-tile:hover
+	{
+		border-color: #b3e6cc;
+	}
+
 hex-tile:before {
 	content: "";
 	position: absolute;
