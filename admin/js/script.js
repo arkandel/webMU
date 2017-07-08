@@ -114,6 +114,8 @@ function UpdateRoomDetails() {
             // hide modal popup
             $("#update_room_modal").modal("hide");
             // reload rooms by using readRooms();
+            filter = searchbox.value;
+            currentPage = $( "li[value='current']" ).html();
             readRooms(filter, currentPage, perPage);
         }
     );
