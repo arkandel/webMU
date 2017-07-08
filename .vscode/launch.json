@@ -16,7 +16,7 @@
                          "type": "chrome",
                          "request": "launch",
                          "diagnosticLogging": true,
-                         "url": "http://thoughtforge.ca/grid2",
+                         "url": "http://thoughtforge.ca/grid",
                         "runtimeArgs": [
                                                 "--new-window", //Open in new window
                                                 "--user-data-dir=c:\\temp\\", //Can be any directory. Makes chrome load in a different directory so that it opens in a new instance.

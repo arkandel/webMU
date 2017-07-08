@@ -5,7 +5,7 @@
     <title>World Builder Tool</title>
 
     <!-- Bootstrap CSS File  -->
-    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.5-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.3.5-dist/css/bootstrap.css"/>
     <script type="text/javascript" src="../js/tinymce/tinymce.min.js"></script>  
 	
 </head>
@@ -108,7 +108,7 @@
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
 <!-- Bootstrap JS file -->
-<script type="text/javascript" src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 <!-- Custom JS file -->
 <script type="text/javascript" src="js/script.js"></script>
