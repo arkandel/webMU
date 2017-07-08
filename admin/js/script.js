@@ -5,12 +5,16 @@ function addRecord() {
     // get values
     var name = $("#name").val();
     var description = $("#description").val();
-    //description = tinyMCE.activeEditor.getContent();
+    var x = $("#coordx").val();
+    var y = $("#coordy").val();
 
+console.log(x + "---" + y);
     // Add record
     $.post("ajax/addRecord.php", {
         name: name,
         description: description,
+        x: x,
+        y: y,
     }, function (data, status) {
         // close the popup
         $("#add_new_record_modal").modal("hide");
@@ -22,6 +26,8 @@ function addRecord() {
 
         // clear fields from the popup
         $("#name").val("");
+        $("#coordx").val("");
+        $("#coordy").val("");
 		$("#description").val("");
 		tinyMCE.activeEditor.setContent("");
     });
@@ -87,6 +93,8 @@ function GetRoomDetails(id) {
             // Assing existing values to the modal popup fields
             $("#update_name").val(room.name);
             tinyMCE.activeEditor.setContent(room.description);
+            $("#update_coordx").val(room.X);
+            $("#update_coordy").val(room.Y);
         }
     );
     // Open modal popup
@@ -98,6 +106,9 @@ function UpdateRoomDetails() {
     var name = $("#update_name").val();
     //var description = $("#update_description").val();
     description = tinyMCE.activeEditor.getContent();
+    var x = $("#update_coordx").val();
+    var y = $("#update_coordy").val();
+
 
     // get hidden field value
     var id = $("#hidden_room_id").val();
@@ -108,6 +119,8 @@ function UpdateRoomDetails() {
             id: id,
             name: name,
             description: description,
+            x: x,
+            y: y,
         },
         function (data, status)
 		{

@@ -11,8 +11,17 @@ if(isset($_POST))
     $name = $mysqli->real_escape_string($_POST['name']);
     $description = $mysqli->real_escape_string($_POST['description']);
 
+	if(isset($_POST['x']))
+		$x = $mysqli->real_escape_string($_POST['x']);
+	else
+		$x = "NULL";
+	if(isset($_POST['y']))
+		$y = $mysqli->real_escape_string($_POST['y']);
+	else
+		$y = "NULL";
+
     // Updaste User details
-    $query = "UPDATE world SET name = '$name', description = '$description' WHERE id = '$id'";
+    $query = "UPDATE world SET name = '$name', description = '$description', X=$x, Y=$y WHERE id = '$id'";
 
     if (!$result = $mysqli->query($query)) {
         exit($mysqli->error);

@@ -59,6 +59,16 @@
                     <label for="description">Room Description</label>
                     <textarea id="description" placeholder="Room Description" rows="20" cols="80" class="form-control"></textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="coordx">Coordinate X:</label>
+                    <input type="coordx" id="coordx" placeholder="" maxlength="2" size="2"/>
+                </div>
+                <div class="form-group">
+                    <label for="coordy">Coordinate Y:</label>
+                    <input type="coordy" id="coordy" placeholder="" maxlength="2" size="2"/>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -87,12 +97,20 @@
                 <div class="form-group">
                     <label for="update_description">Room Description</label>
                     <textarea id="update_description" placeholder="Room Description" rows="20" cols="80" class="form-control"></textarea>
-
-                <script>
-					tinymce.init({ selector: "#update_description" });
-                </script>
-
+                    <script>
+                        tinymce.init({ selector: "#update_description" });
+                    </script>
                 </div>
+
+               <div class="form-group">
+                    <label for="update_coordx">Coordinate X:</label>
+                    <input type="update_coordx" id="update_coordx" placeholder="" maxlength="2" size="2"/>
+                </div>
+                <div class="form-group">
+                    <label for="update_coordy">Coordinate Y:</label>
+                    <input type="update_coordy" id="update_coordy" placeholder="" maxlength="2" size="2"/>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

@@ -8,7 +8,18 @@
 		$name = $mysqli->real_escape_string($_POST['name']);
 		$description = $mysqli->real_escape_string($_POST['description']);
 
-		$query = "INSERT INTO world(name,description) VALUES('$name', '$description')";
+		if(isset($_POST['x']))
+			$x = $mysqli->real_escape_string($_POST['x']);
+		else
+			$x = "NULL";
+		if(isset($_POST['y']))
+			$y = $mysqli->real_escape_string($_POST['y']);
+		else
+			$y = "NULL";
+
+
+
+		$query = "INSERT INTO world(name,description,X,Y) VALUES('$name', '$description', $x, $y)";
 		error_log($query);
 		if (!$result = $mysqli->query($query)) {
 	        exit($mysqli->error);
